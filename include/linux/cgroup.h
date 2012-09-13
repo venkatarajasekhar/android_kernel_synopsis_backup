@@ -468,6 +468,22 @@ struct cgroup_subsys {
 	 * (not available in early_init time.)
 	 */
 	bool use_id;
+
+	/*
+	 * If %false, this subsystem is properly hierarchical -
+	 * configuration, resource accounting and restriction on a parent
+	 * cgroup cover those of its children.  If %true, hierarchy support
+	 * is broken in some ways - some subsystems ignore hierarchy
+	 * completely while others are only implemented half-way.
+	 *
+	 * It's now disallowed to create nested cgroups if the subsystem is
+	 * broken and cgroup core will emit a warning message on such
+	 * cases.  Eventually, all subsystems will be made properly
+	 * hierarchical and this will go away.
+	 */
+	bool broken_hierarchy;
+	bool warned_broken_hierarchy;
+
 #define MAX_CGROUP_TYPE_NAMELEN 32
 	const char *name;
 

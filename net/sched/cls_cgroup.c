@@ -35,6 +35,15 @@ struct cgroup_subsys net_cls_subsys = {
 	.subsys_id	= net_cls_subsys_id,
 #endif
 	.module		= THIS_MODULE,
+
+	/*
+	 * While net_cls cgroup has the rudimentary hierarchy support of
+	 * inheriting the parent's classid on cgroup creation, it doesn't
+	 * properly propagates config changes in ancestors to their
+	 * descendents.  A child should follow the parent's configuration
+	 * but be allowed to override it.  Fix it and remove the following.
+	 */
+	.broken_hierarchy = true,
 };
 
 

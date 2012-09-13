@@ -35,7 +35,17 @@ struct cgroup_subsys net_prio_subsys = {
 #ifdef CONFIG_NETPRIO_CGROUP
 	.subsys_id	= net_prio_subsys_id,
 #endif
-	.module		= THIS_MODULE
+	.module		= THIS_MODULE,
+
+	/*
+	 * net_prio has artificial limit on the number of cgroups and
+	 * disallows nesting making it impossible to co-mount it with other
+	 * hierarchical subsystems.  Remove the artificially low PRIOIDX_SZ
+	 * limit and properly nest configuration such that children follow
+	 * their parents' configurations by default and are allowed to
+	 * override and remove the following.
+	 */
+	.broken_hierarchy = true,
 };
 
 #define PRIOIDX_SZ 128
