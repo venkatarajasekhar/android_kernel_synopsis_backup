@@ -37,7 +37,7 @@
 
 static inline void dsb_sev(void)
 {
-	dsb();
+	dsb(ishst);
 	__asm__(SEV);
 }
 
