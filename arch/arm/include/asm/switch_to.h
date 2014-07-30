@@ -9,8 +9,7 @@
  * to ensure that the maintenance completes in case we migrate to another
  * CPU.
  */
-#if defined(CONFIG_PREEMPT) && defined(CONFIG_SMP) && defined(CONFIG_CPU_V7) \
- 						&& !defined(finish_arch_switch)
+#if defined(CONFIG_PREEMPT) && defined(CONFIG_SMP) && defined(CONFIG_CPU_V7)
 #define finish_arch_switch(prev)	dsb(ish)
 #endif
 
